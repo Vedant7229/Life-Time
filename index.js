@@ -33,23 +33,46 @@ const toggleDateofBirthSelector = () => {
 
 };
 const updateAge = () => {
+    if (!DateOfBirth) return;
+
     const currentDate = new Date();
-    const dateDiff = currentDate - DateOfBirth;
-    const Year = Math.floor(dateDiff/(1000*60*60*24*365));
-    const Months = Math.floor(dateDiff/(1000*60*60*24*365)%12);
-    const Days = Math.floor(dateDiff/(1000*60*60*24)%30);
-    const Hrs = Math.floor(dateDiff/(1000*60*60)%24);
-    const Mins = Math.floor(dateDiff/(1000*60)%60);
-    const Seconds = Math.floor(dateDiff/(1000)%60);
 
-    
+    let years = currentDate.getFullYear() - DateOfBirth.getFullYear();
+    let months = currentDate.getMonth() - DateOfBirth.getMonth();
+    let days = currentDate.getDate() - DateOfBirth.getDate();
+    let hours = currentDate.getHours() - DateOfBirth.getHours();
+    let minutes = currentDate.getMinutes() - DateOfBirth.getMinutes();
+    let seconds = currentDate.getSeconds() - DateOfBirth.getSeconds();
 
-    yearEl.innerHTML = makeTwoDigitNumber(Year);
-    monthEl.innerHTML = makeTwoDigitNumber (Months);
-    dayEl.innerHTML = makeTwoDigitNumber (Days);
-    hourEl.innerHTML = makeTwoDigitNumber (Hrs);
-    minuteEl.innerHTML = makeTwoDigitNumber (Mins);
-    secondEl.innerHTML = makeTwoDigitNumber (Seconds);
+    if (seconds < 0) {
+        seconds += 60;
+        minutes--;
+    }
+    if (minutes < 0) {
+        minutes += 60;
+        hours--;
+    }
+    if (hours < 0) {
+        hours += 24;
+        days--;
+    }
+    if (days < 0) {
+        // Get days in previous month
+        const prevMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0);
+        days += prevMonth.getDate();
+        months--;
+    }
+    if (months < 0) {
+        months += 12;
+        years--;
+    }
+
+    yearEl.innerHTML = makeTwoDigitNumber(years);
+    monthEl.innerHTML = makeTwoDigitNumber(months);
+    dayEl.innerHTML = makeTwoDigitNumber(days);
+    hourEl.innerHTML = makeTwoDigitNumber(hours);
+    minuteEl.innerHTML = makeTwoDigitNumber(minutes);
+    secondEl.innerHTML = makeTwoDigitNumber(seconds);
 };
 
 
