@@ -17,3 +17,5 @@ Live Demo: https://vedant7229.github.io/Life-Time/
 ---
 
 ## Preview
+
+<img width="1883" height="990" alt="image" src="https://github.com/user-attachments/assets/616578f3-c72b-4efc-a21f-8ffb88ee545b" />
